@@ -118,6 +118,9 @@ textarea {
   text-decoration: line-through;
   color: grey;
 }
+.done:hover,.task:hover{
+  cursor: grab;
+}
 
 .done span {
   background: rgb(105, 188, 255);
