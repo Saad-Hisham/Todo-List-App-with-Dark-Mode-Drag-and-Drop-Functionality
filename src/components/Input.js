@@ -8,14 +8,8 @@ import sun from "../todo-app-main/images/icon-sun.svg"
 import { SortableItem } from "../components/SortableItem";
 
 function Input() {
-  const [tasks, setTasks] = useState([
-    { key: Math.random() * 1234567890123456789, content: "Complete Online javascript course", activeTask: false },
-    { key: Math.random() * 1234567890123456789, content: "Jog around the park x3", activeTask: true },
-    { key: Math.random() * 1234567890123456789, content: "10 Minutes of meditaion", activeTask: true },
-    { key: Math.random() * 1234567890123456789, content: "Read for 1 hour", activeTask: true },
-    { key: Math.random() * 1234567890123456789, content: "Pick up groceries", activeTask: true },
-    { key: Math.random() * 1234567890123456789, content: "Complete Todo App on Frontend Mentor", activeTask: true },
-]);
+  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("items")));
+
   { localStorage.getItem("items") == null ? localStorage.setItem("items", "[]") : localStorage.setItem("items", JSON.stringify(tasks)) }
   const done = tasks.filter(filter => filter.activeTask == false);
   const active = tasks.filter(filter => filter.activeTask == true);
