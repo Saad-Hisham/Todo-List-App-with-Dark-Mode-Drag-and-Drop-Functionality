@@ -1,7 +1,7 @@
 
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import moon from "../todo-app-main/images/icon-moon.svg"
 import sun from "../todo-app-main/images/icon-sun.svg"
@@ -35,6 +35,8 @@ function Input() {
     }
   }
 
+
+
   return (
 
     <main>
@@ -57,8 +59,22 @@ function Input() {
           <Row>
             <Col xs={12}>
               <div className="input-container" >
-                <input type="text" placeholder="Create a new todo..." value={text} onChange={(e) => { setText(e.target.value) }} />
-                <span onClick={() => {
+                <input  type="text" placeholder="Create a new todo..." value={text} onChange={(e) => { setText(e.target.value) }} 
+                onKeyUp={(e)=>{
+                  if(e.keyCode==13)
+                  if (text.trim() === '') {
+                    return false;
+                  } else {
+                    setTasks([...tasks, { key: Math.random() * 1234567890123456789, content: text, activeTask: true }])
+                    setActiveFilter(false)
+                    setcount(active.length + 1)
+                    setText("")
+
+                  }
+                }}
+                />
+                <span
+                 onClick={() => {
                   if (text.trim() === '') {
                     return false;
                   } else {
