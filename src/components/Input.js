@@ -1,4 +1,3 @@
-
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useState } from "react";
@@ -8,14 +7,7 @@ import sun from "../todo-app-main/images/icon-sun.svg"
 import { SortableItem } from "../components/SortableItem";
 
 function Input() {
-  const [tasks, setTasks] = useState([
-    { key: Math.random() * 1234567890123456789, content: "Complete Online javascript course", activeTask: false },
-    { key: Math.random() * 1234567890123456789, content: "Jog around the park x3", activeTask: true },
-    { key: Math.random() * 1234567890123456789, content: "10 Minutes of meditaion", activeTask: true },
-    { key: Math.random() * 1234567890123456789, content: "Read for 1 hour", activeTask: true },
-    { key: Math.random() * 1234567890123456789, content: "Pick up groceries", activeTask: true },
-    { key: Math.random() * 1234567890123456789, content: "Complete Todo App on Frontend Mentor", activeTask: true },
-]);
+  const [tasks, setTasks] = useState([JSON.parse(localStorage.getItem("items"))]);
   { localStorage.getItem("items") == null ? localStorage.setItem("items", "[]") : localStorage.setItem("items", JSON.stringify(tasks)) }
   const done = tasks.filter(filter => filter.activeTask == false);
   const active = tasks.filter(filter => filter.activeTask == true);
@@ -26,7 +18,6 @@ function Input() {
   const [filterd, setFilterd] = useState(tasks);
   const [activeFilter, setActiveFilter] = useState(false)
   const [count, setcount] = useState(filterd.length - done.length);
-  const [activeClass,setActiveClass] = useState("all")
 
   const hanldeMode = () => {
     if (mode != "light") {
@@ -115,26 +106,17 @@ function Input() {
                 <div>{count} items left</div>
                 <div>
                   <ul>
-                    <li 
-                    className={activeClass=="all"?"active" :null}
-                    onClick={() => {
-                      setActiveClass("all")
+                    <li onClick={() => {
                       setActiveFilter(true)
                       setFilterd(tasks)
 
                     }}>All</li>
-                    <li 
-                     className={activeClass=="active"?"active" :null}
-                    onClick={() => {
-                      setActiveClass("active")
+                    <li onClick={() => {
                       setActiveFilter(true)
                       setFilterd(active)
 
                     }}>Active</li>
-                    <li 
-                   className={activeClass=="comp"?"active" :null}
-                    onClick={() => {
-                      setActiveClass("comp")
+                    <li onClick={() => {
                       setActiveFilter(true)
                       setFilterd(done)
 
@@ -147,9 +129,7 @@ function Input() {
                   setcount(active.length)
 
 
-                }}
-                style={{cursor:"pointer"}}
-                >
+                }}>
                   Clear Completed
                 </div>
 
@@ -190,10 +170,6 @@ function Input() {
 }
 
 export default Input;
-
-
-
-
 
 
 
